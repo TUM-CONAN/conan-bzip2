@@ -11,10 +11,10 @@ class Bzip2Conan(ConanFile):
     generators = []
 
     def source(self):
-        tools.download(f'http://www.bzip.org/{self.version}/bzip2-{self.version}.tar.gz', 'bzip2.tar.gz')
+        tools.download('http://www.bzip.org/%s/bzip2-%s.tar.gz' % (self.version, self.version), 'bzip2.tar.gz')
         tools.unzip('bzip2.tar.gz')
         os.unlink('bzip2.tar.gz')
-        os.rename(f'bzip2-{self.version}', self.name)
+        os.rename('bzip2-%s' % self.version, self.name)
         
         if self.settings.os == "Windows":
             tools.replace_in_file('bzip2/makefile.msc', 'CFLAGS= -DWIN32 -MD -Ox -D_FILE_OFFSET_BITS=64 -nologo', '''
@@ -43,8 +43,7 @@ CFG_LDFLAGS=-LTCG
     def package(self):
         self.copy("bzlib.h", dst="include", src="bzip2", keep_path=False)
         self.copy("libbz2.lib", dst="lib", src='bzip2', keep_path=False)
-        if self.settings.os == "Windows":
-            self.copy("libbz2.pdb", dst="lib", src='bzip2', keep_path=False)
+        self.copy("libbz2.pdb", dst="lib", src='bzip2', keep_path=False)
 
     def package_info(self):
         self.cpp_info.libs = ["libbz2"]
