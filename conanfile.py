@@ -36,9 +36,9 @@ CFG_LDFLAGS=-LTCG
         config = str(self.settings.build_type).lower()
         with tools.chdir('bzip2'):
             if self.settings.os == "Windows":
-                self.run(f'nmake -f makefile.msc CFG={config}')
+                self.run('nmake -f makefile.msc CFG=%s' % config)
             else:
-                self.run(f'make -f Makefile CFG={config}')
+                self.run('make -f Makefile CFG=%s' % config)
 
     def package(self):
         self.copy("bzlib.h", dst="include", src="bzip2", keep_path=False)
