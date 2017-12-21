@@ -20,6 +20,7 @@ environment:
 
 install:
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
+  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
   - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - set PATH=%PATH%;%PYTHON%/Scripts/
   - pip.exe install conan_package_tools # It install conan too
