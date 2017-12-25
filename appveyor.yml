@@ -9,14 +9,15 @@ environment:
     CONAN_REFERENCE: "bzip2/1.0.6"
     CONAN_USERNAME: "ulricheck"
     CONAN_CHANNEL: "stable"
-    CONAN_TOTAL_PAGES: 4
     CONAN_STABLE_BRANCH_PATTERN: "release/*"
     
     matrix:
-        - CONAN_CURRENT_PAGE: 1
-        - CONAN_CURRENT_PAGE: 2  
-        - CONAN_CURRENT_PAGE: 3
-        - CONAN_CURRENT_PAGE: 4
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+          CONAN_VISUAL_VERSIONS: 12
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
+          CONAN_VISUAL_VERSIONS: 14
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
+          CONAN_VISUAL_VERSIONS: 15
 
 install:
   # Workaround for CMake not wanting sh.exe on PATH for MinGW
