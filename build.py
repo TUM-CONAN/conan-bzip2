@@ -12,5 +12,5 @@ if __name__ == "__main__":
             if not ("bzip2:shared" in options and options["bzip2:shared"]):
                 static_builds.append([settings, options, env_vars, build_requires])
 
-    builder.builds = static_builds
+        builder.builds = static_builds
     builder.run()
