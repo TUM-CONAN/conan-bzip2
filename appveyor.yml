@@ -4,14 +4,15 @@ environment:
     PYTHON_VERSION: "3.6.3"
     PYTHON_ARCH: "64"
     
-    CONAN_UPLOAD: "https://api.bintray.com/conan/tum-ubitrack/public-conan"
-    CONAN_REMOTES: "https://api.bintray.com/conan/tum-ubitrack/public-conan"
+    CONAN_UPLOAD: "https://api.bintray.com/conan/tum-ubitrack-deps/public-conan"
     CONAN_REFERENCE: "bzip2/1.0.6"
     CONAN_USERNAME: "ulricheck"
     CONAN_CHANNEL: "stable"
     CONAN_STABLE_BRANCH_PATTERN: "release/*"
+    VS150COMNTOOLS: "C:\\Program Files (x86)\\Microsoft Visual Studio\\2017\\Community\\Common7\\Tools\\"
     
     matrix:
+        - MINGW_CONFIGURATIONS: "4.9@x86_64@seh@posix, 4.9@x86_64@sjlj@posix, 4.9@x86@sjlj@posix, 4.9@x86@dwarf2@posix"
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           CONAN_VISUAL_VERSIONS: 12
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
@@ -20,9 +21,6 @@ environment:
           CONAN_VISUAL_VERSIONS: 15
 
 install:
-  # Workaround for CMake not wanting sh.exe on PATH for MinGW
-  - '"C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64'
-  - set PATH=%PATH:C:\Program Files\Git\usr\bin;=%
   - set PATH=%PATH%;%PYTHON%/Scripts/
   - pip.exe install conan_package_tools # It install conan too
   - conan user # It creates the conan data directory
