@@ -30,11 +30,9 @@ class Bzip2Conan(ConanFile):
 
     def source(self):
         zip_name = "bzip2-%s.tar.gz" % self.version
-        tools.download("http://www.bzip.org/%s/%s" % (self.version, zip_name), zip_name)
-        tools.check_md5(zip_name, "00b516f4704d4a7cb50a1d97e6e8e15b")
-        tools.unzip(zip_name)
-        os.unlink(zip_name)
-
+        sha256 = "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
+        tools.get(url="http://www.bzip.org/%s/%s" % (self.version, zip_name), sha256=sha256, filename=zip_name)
+        
     def build(self):
         shutil.move("CMakeLists.txt", "%s/CMakeLists.txt" % self.zip_folder_name)
         with tools.chdir(self.zip_folder_name):
