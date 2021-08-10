@@ -7,7 +7,9 @@ from conans import ConanFile
 
 class Bzip2Conan(ConanFile):
     name = "bzip2"
-    version = "1.0.6"
+    revision = ""
+    source_version = "1.0.6"
+    version = source_version + revision
     branch = "master"
     generators = "cmake"
     settings = "os", "compiler", "arch", "build_type"
@@ -23,13 +25,13 @@ class Bzip2Conan(ConanFile):
 
     @property
     def zip_folder_name(self):
-        return "bzip2-%s" % self.version
+        return "bzip2-%s" % self.source_version
 
     def config(self):
         del self.settings.compiler.libcxx
 
     def source(self):
-        zip_name = "bzip2-%s.tar.gz" % self.version
+        zip_name = "bzip2-%s.tar.gz" % self.source_version
         sha256 = "a2848f34fcd5d6cf47def00461fcb528a0484d8edef8208d6d2e2909dc61d9cd"
         tools.get(url="https://sourceforge.net/projects/bzip2/files/%s/download" % (zip_name), sha256=sha256, filename=zip_name)
         
